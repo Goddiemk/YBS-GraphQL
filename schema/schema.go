@@ -2,7 +2,6 @@ package schema
 
 import (
 	"../resolvers"
-	"fmt"
 	"github.com/graphql-go/graphql"
 )
 
@@ -106,8 +105,4 @@ func init() {
 	Schema, _ = graphql.NewSchema(graphql.SchemaConfig{
 		Query: rootQuery,
 	})
-}
-
-func Diff(want, got interface{}) []string {
-	return []string{fmt.Sprintf("\ngot: %v", got), fmt.Sprintf("\nwant: %v\n", want)}
 }

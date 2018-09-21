@@ -2,8 +2,9 @@ package main
 
 import (
 	"./schema"
+	"encoding/json"
 	"github.com/graphql-go/graphql"
-	"reflect"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -20,25 +21,9 @@ func init() {
 		{
 			Query: `
 			query{
-				busdata(id:1){
-					Start
-				}
-			}
-		`,
-			Schema: schema.Schema,
-			Expected: &graphql.Result{
-				Data: map[string]interface{}{
-					"busdata": map[string]interface{}{
-						"Start": "လှည်းကူးဈေးရှေ့",
-					},
-				},
-			},
-		},
-		{
-			Query: `
-			query{
 				busline(name:"နတ်စင်"){
 					ID
+					Lines
 				}
 			}
 		`,
@@ -47,21 +32,24 @@ func init() {
 				Data: map[string]interface{}{
 					"busline": []interface{}{
 						map[string]interface{}{
-							"ID": 1,
+							"ID":    1,
+							"Lines": []string{"1", "46"},
 						},
 						map[string]interface{}{
-							"ID": 2,
+							"ID":    2,
+							"Lines": []string{"1", "46"},
 						},
 					},
 				},
 			},
 		},
-
 		{
 			Query: `
 				query{
 					busdata(id:3){
-						Start					
+						Start
+						End
+						Route			
 					}
 				}
 			`,
@@ -70,11 +58,27 @@ func init() {
 				Data: map[string]interface{}{
 					"busdata": map[string]interface{}{
 						"Start": "ယုဇနဥယျာဉ်မြို့တော်",
+						"End":   "မင်္ဂလာဈေး",
+						"Route": []string{
+							"ယုဇနဥယျာဉ်မြို့တော်",
+							"ပဲခူးမြစ်လမ်း",
+							"ဧရာဝဏ်လမ်း",
+							"မောင်းမကန်လမ်း",
+							"စည်ပင်လမ်း",
+							"တောင်မြောက်လမ်းဆုံ",
+							"စံပြဈေး",
+							"လေးထောင့်ကန်လမ်း",
+							"အရှေ့မြင်းပြိုင်ကွင်းလမ်း",
+							"တာမွေအဝိုင်း",
+							"ဗညားဒလလမ်း",
+							"ယုဇနပလာဇာ",
+							"မင်္ဂလာဈေး",
+							"ကျိုက္ကဆံလမ်း",
+						},
 					},
 				},
 			},
 		},
-
 		{
 			Query: `
 				query{
@@ -110,8 +114,7 @@ func testGraphql(test T, p graphql.Params, t *testing.T) {
 	if len(result.Errors) > 0 {
 		t.Errorf("wrong result, unexpected errors: %v", result.Errors)
 	}
-
-	if !reflect.DeepEqual(result, test.Expected) {
-		t.Errorf("wrong result, query: %v, graphql result diff: %v", test.Query, schema.Diff(test.Expected, result))
-	}
+	actual, _ := json.Marshal(result)
+	expected, _ := json.Marshal(test.Expected)
+	assert.Exactly(t, string(actual), string(expected))
 }
