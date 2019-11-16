@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./schema"
 	gqlhandler "github.com/graphql-go/handler"
 	"log"
+	"minkhantkoko/YBS-GraphQL/schema"
 	"net/http"
 )
 

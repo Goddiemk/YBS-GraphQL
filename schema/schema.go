@@ -1,8 +1,8 @@
 package schema
 
 import (
-	"../resolvers"
 	"github.com/graphql-go/graphql"
+	"minkhantkoko/YBS-GraphQL/resolvers"
 )
 
 var Schema graphql.Schema
