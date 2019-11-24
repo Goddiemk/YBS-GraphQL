@@ -30,6 +30,14 @@
   version = "v0.7.8"
 
 [[projects]]
+  digest = "1:fef0874d72d1f1f1cb61d390980fef4abdfb9d4a52446556e4414627833e3702"
+  name = "github.com/graphql-go/handler"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "c1267356e6539d975e83bbea383c2bbb861dce5b"
+  version = "v0.2.3"
+
+[[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
@@ -46,18 +54,19 @@
   version = "v1.4.0"
 
 [[projects]]
-  digest = "1:f26a5d382387e03a40d1471dddfba85dfff9bf05352d7e42d37612677c4d3c5c"
+  digest = "1:b75b3deb2bce8bc079e16bb2aecfe01eb80098f5650f9e93e5643ca8b7b73737"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
-  revision = "f90ceb4f409096b60e2e9076b38b304b8246e5fa"
-  version = "v2.2.5"
+  revision = "1f64d6156d11335c3f22d9330b0ad14fc1e789ce"
+  version = "v2.2.7"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
     "github.com/graphql-go/graphql",
+    "github.com/graphql-go/handler",
     "github.com/stretchr/testify/assert",
   ]
   solver-name = "gps-cdcl"

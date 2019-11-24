@@ -1,18 +1,20 @@
 package main
 
 import (
-	gqlhandler "github.com/graphql-go/handler"
-	"log"
-	"minkhantkoko/YBS-GraphQL/schema"
+	"minkhantkoko/YBS/lib"
 	"net/http"
+
+	"github.com/graphql-go/handler"
 )
 
 func main() {
-
-	handler := gqlhandler.New(&gqlhandler.Config{
-		Schema: &schema.Schema,
+	schema, _ := lib.BaseSchema()
+	h := handler.New(&handler.Config{
+		Schema:   &schema,
+		Pretty:   true,
+		GraphiQL: true,
 	})
-	http.Handle("/graphql", handler)
-	log.Println("Server started at http://localhost:8000/graphql")
-	log.Fatal(http.ListenAndServe(":8000", nil))
+
+	http.Handle("/graphql", h)
+	http.ListenAndServe(":8080", nil)
 }
